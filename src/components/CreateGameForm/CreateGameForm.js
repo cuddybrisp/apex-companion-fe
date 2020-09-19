@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 
-const CreateGameForm = (props) => {
+const CreateGameForm = (user, props) => {
   return (
     <Form>
       <FormGroup>
@@ -11,6 +11,7 @@ const CreateGameForm = (props) => {
       <FormGroup>
         <Label for="legendSelect">Legend Used:</Label>
         <Input type="select" name="select" id="legendSelect">
+          <option>--Select Legend--</option>
           <option>Bangalore</option>
           <option>Bloodhound</option>
           <option>Caustic</option>
@@ -36,25 +37,15 @@ const CreateGameForm = (props) => {
         <Input type="file" name="file" id="exampleFile" />
         <FormText color="muted">
           This is some placeholder block-level help text for the above input.
-          It's a bit lighter and easily wraps to a new line.
+          Its a bit lighter and easily wraps to a new line.
         </FormText>
-        <FormGroup check>
-          <Label check>
-            <Input type="radio" name="radio1" />{' '}
-            Option two can be something else and selecting it will deselect option one
-          </Label>
-        </FormGroup>
         <FormGroup check disabled>
-          <Label check>
-            <Input type="radio" name="radio1" disabled />{' '}
-            Option three is disabled
-          </Label>
         </FormGroup>
       </FormGroup>
       <FormGroup check>
         <Label check>
           <Input type="checkbox" />{' '}
-          Check me out
+          Win
         </Label>
       </FormGroup>
       <Button>Submit</Button>
