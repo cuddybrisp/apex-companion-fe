@@ -1,36 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { Collapse, CardBody, Card } from 'reactstrap'
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
-const ShowLegends = (user, game, props) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [legends, setLegends] = useState([])
-  const toggle = () => setIsOpen(!isOpen)
-  useEffect(() => {
-    axios({
-      url: `${apiUrl}/legends`,
-      headers: {
-        'Authorization': `Token token=${user.token}`
-      }
-    })
-      .then(res => setLegends(res.data.legends))
-      .catch(console.error)
-  }, [])
-  props.legends.forEach(legend => {
+import React from 'react'
+import { CardBody, Card, CardImg } from 'reactstrap'
+// import axios from 'axios'
+// import apiUrl from '../../apiConfig'
+const ShowLegends = (user, game, legends) => {
+  // const [isOpen, setIsOpen] = useState(false)
+  // const toggle = () => setIsOpen(!isOpen)
+  // useEffect(() => {
+  //   axios({
+  //     url: `${apiUrl}/legends`,
+  //     headers: {
+  //       'Authorization': `Token token=${user.token}`
+  //     }
+  //   })
+  //     .then(res => setLegends(res.data.legends))
+  //     .catch(console.error)
+  // }, [])
+  const allLegends = user.legends.map(legend => {
     return (
-      <div>
+      <div key={legend._id}>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
-        <Collapse isOpen={isOpen} onClick={toggle} style={{ marginBottom: '1rem' }}>
-          <Card id={legend.id}>
-            <img src={legend.image} />
-            <CardBody>
-              {game}
-            </CardBody>
-          </Card>
-        </Collapse>
+        <Card id={legend.id}>
+          <CardImg width='50%' src={legend.image} />
+          <CardBody>
+            <small>ADD GAMES HERE</small>
+          </CardBody>
+        </Card>
       </div>
     )
   })
+  return <div>{ allLegends }</div>
 }
 
 export default ShowLegends

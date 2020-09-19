@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
@@ -10,16 +10,27 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import LegendBoard from '../LegendBoard/LegendBoard'
 import CreateGameForm from '../CreateGameForm/CreateGameForm'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [legends, setLegends] = useState([])
 
   const clearUser = () => setUser(null)
 
   const msgAlert = ({ heading, message, variant }) => {
     setMsgAlerts([...msgAlerts, { heading, message, variant }])
   }
+  useEffect(() => {
+    axios({
+      url: `${apiUrl}/legends`
+    })
+      .then(res => setLegends(res.data.legends))
+      .catch(console.error)
+  }, [])
+  console.log('this is legends:', legends)
   return (
     <Fragment>
       <Header user={user} />
@@ -31,8 +42,8 @@ const App = () => {
           message={msgAlert.message}
         />
       ))}
-      <CreateGameForm user={user} />
-      <LegendBoard user={user} />
+      <CreateGameForm user={user} legends={legends} />
+      { legends.length !== 0 ? <LegendBoard user={user} legends={legends} /> : null }
       <main className="container">
         <Route path='/sign-up' render={() => (
           <SignUp msgAlert={msgAlert} setUser={setUser} />
