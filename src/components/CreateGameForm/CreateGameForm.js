@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 
 const CreateGameForm = (user, props) => {
+  console.log('this is legends in CreateGameForm:', user.legends)
   return (
     <Form>
       <FormGroup>
