@@ -42,8 +42,6 @@ const App = () => {
           message={msgAlert.message}
         />
       ))}
-      <CreateGameForm user={user} legends={legends} />
-      { legends.length !== 0 ? <LegendBoard user={user} legends={legends} /> : null }
       <main className="container">
         <Route path='/sign-up' render={() => (
           <SignUp msgAlert={msgAlert} setUser={setUser} />
@@ -58,6 +56,8 @@ const App = () => {
           <ChangePassword msgAlert={msgAlert} user={user} />
         )} />
       </main>
+      <CreateGameForm user={user} legends={legends} />
+      { legends.length !== 0 ? <LegendBoard user={user} legends={legends} /> : null }
     </Fragment>
   )
 }

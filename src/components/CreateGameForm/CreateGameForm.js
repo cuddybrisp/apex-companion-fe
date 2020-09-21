@@ -1,55 +1,60 @@
-import React from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
+import React, { useState } from 'react'
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import apiUrl from '../../apiConfig'
+import axios from 'axios'
 
-const CreateGameForm = (user, props) => {
-  console.log('this is legends in CreateGameForm:', user.legends)
+const CreateGameForm = ({ user, legends }) => {
+  const [game, setGame] = useState({ legend: '', kills: '', damage: '', win: false })
+  console.log('this is legends in CreateGameForm:', legends)
+  const allLegends = legends.map(legend => {
+    return (<option value={legend._id} key={legend._id}>{legend.name}</option>)
+  })
+
+  const handleChange = event => {
+    event.persist()
+    setGame(prevGame => {
+      const updatedField = event.target.name === 'win' ? { win: !prevGame.win } : { [event.target.name]: event.target.value }
+      console.log('this is updatedField in create', updatedField)
+      const editedGame = Object.assign({}, prevGame, updatedField)
+      return editedGame
+    })
+  }
+  const handleSubmit = event => {
+    console.log('the game is the game', game)
+    event.preventDefault()
+
+    axios({
+      url: `${apiUrl}/games`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      },
+      data: { game }
+    })
+  }
+  console.log('this is handlechange', handleChange, game)
   return (
-    <Form>
-      <FormGroup>
-        <Label for="examplePassword">Password</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-      </FormGroup>
+    <Form onSubmit={handleSubmit} onChange={handleChange}>
       <FormGroup>
         <Label for="legendSelect">Legend Used:</Label>
-        <Input type="select" name="select" id="legendSelect">
+        <Input type="select" name="legend" id="legendSelect">
           <option>--Select Legend--</option>
-          <option>Bangalore</option>
-          <option>Bloodhound</option>
-          <option>Caustic</option>
-          <option>Crypto</option>
-          <option>Gibraltar</option>
-          <option>Lifeline</option>
-          <option>Loba</option>
-          <option>Mirage</option>
-          <option>Octane</option>
-          <option>Pathfinder</option>
-          <option>Rampart</option>
-          <option>Revenant</option>
-          <option>Wattson</option>
-          <option>Wraith</option>
+          {allLegends}
         </Input>
       </FormGroup>
       <FormGroup>
-        <Label for="exampleText">Text Area</Label>
-        <Input type="textarea" name="text" id="exampleText" />
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleFile">File</Label>
-        <Input type="file" name="file" id="exampleFile" />
-        <FormText color="muted">
-          This is some placeholder block-level help text for the above input.
-          Its a bit lighter and easily wraps to a new line.
-        </FormText>
-        <FormGroup check disabled>
-        </FormGroup>
+        <Label for="exampleText">Kills:</Label>
+        <Input type="text" name="kills" id="kills" />
+        <Label for="exampleText">Damage Done:</Label>
+        <Input type="text" name="damage" id="damage" />
       </FormGroup>
       <FormGroup check>
         <Label check>
-          <Input type="checkbox" />{' '}
+          <Input type="checkbox" name='win' checked={game.win} />
           Win
         </Label>
       </FormGroup>
-      <Button>Submit</Button>
+      <Button type="submit">Submit</Button>
     </Form>
   )
 }
