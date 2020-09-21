@@ -17,6 +17,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
   const [legends, setLegends] = useState([])
+  // const [game, setGames] = useState([])
 
   const clearUser = () => setUser(null)
 
@@ -30,6 +31,13 @@ const App = () => {
       .then(res => setLegends(res.data.legends))
       .catch(console.error)
   }, [])
+  // useEffect(() => {
+  //   axios({
+  //     url: `${apiUrl}/games`
+  //   })
+  //     .then(res => setGames(res.data.games))
+  //     .catch(console.error)
+  // }, [])
   console.log('this is legends:', legends)
   return (
     <Fragment>
@@ -55,9 +63,13 @@ const App = () => {
         <AuthenticatedRoute user={user} path='/change-password' render={() => (
           <ChangePassword msgAlert={msgAlert} user={user} />
         )} />
+        <AuthenticatedRoute user={user} path='/new-games' render={() => (
+          <CreateGameForm user={user} legends={legends} />
+        )} />
+        <AuthenticatedRoute user={user} path='/view-games' render={() => (
+          <LegendBoard user={user} legends={legends} />
+        )} />
       </main>
-      <CreateGameForm user={user} legends={legends} />
-      { legends.length !== 0 ? <LegendBoard user={user} legends={legends} /> : null }
     </Fragment>
   )
 }
