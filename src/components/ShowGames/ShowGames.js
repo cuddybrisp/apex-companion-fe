@@ -1,26 +1,46 @@
-// import React from 'react'
-// import { CardBody, Card, CardImg, CardText } from 'reactstrap'
-// import './showlegends.css'
-//
-// const ShowGames = ({ user, games, legends }) => {
-//   console.log('this is the game in Showgames', games)
-//   const allLegends = legends.map(legend => {
-//     return (
-//       <div key={legend._id}>
-//         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
-//         <Card id={legend.id}>
-//           <CardImg width='50%' src={legend.image} />
-//           <CardBody>
-//             <CardText>{legend.name}</CardText>
-//           </CardBody>
-//         </Card>
-//       </div>
-//     )
-//   })
-//   return <div>{ allLegends }</div>
-// }
-//
-// export default ShowGames
+import React, { useEffect, useState } from 'react'
+import { CardBody, Card, CardText } from 'reactstrap'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
+
+const ShowGames = ({ user }) => {
+  const [games, setGames] = useState([])
+  useEffect(() => {
+    axios({
+      url: `${apiUrl}/games`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(res => setGames(res.data.games))
+      .catch(console.error)
+  }, [])
+  console.log('this is the game in Showgames', games)
+  const allGames = games.map(game => {
+    return (
+      <div key={game._id}>
+        {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
+        <Card id={game.legend.id}>
+          <CardBody>
+            <CardText >
+              <p>
+                {game.legend.name}
+                {game.legend.damage}
+                {game.legend.kills}
+                {game.legend.win}
+              </p>
+            </CardText>
+          </CardBody>
+        </Card>
+      </div>
+    )
+  })
+  return <div>
+    { allGames }
+  </div>
+}
+export default ShowGames
 
 // const getGameStats = (legId) => {
 //   // this is the syntax used to get the name from the function
