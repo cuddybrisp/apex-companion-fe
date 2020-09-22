@@ -18,6 +18,7 @@ const ShowGames = ({ user }) => {
   }, [])
   console.log('this is the game in Showgames', games)
   const allGames = games.map(game => {
+    console.log('this is games in ShowGames after map', game)
     return (
       <div key={game._id}>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
@@ -26,9 +27,13 @@ const ShowGames = ({ user }) => {
             <CardText >
               <p>
                 {game.legend.name}
-                {game.legend.damage}
-                {game.legend.kills}
-                {game.legend.win}
+                <p>
+                  {game.damage}
+                </p>
+                <p>
+                  {game.kills}
+                </p>
+                {game.win}
               </p>
             </CardText>
           </CardBody>
