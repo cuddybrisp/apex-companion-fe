@@ -10,6 +10,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import LegendBoard from '../LegendBoard/LegendBoard'
 import CreateGameForm from '../CreateGameForm/CreateGameForm'
+import ShowGames from '../ShowGames/ShowGames'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 
@@ -17,7 +18,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
   const [legends, setLegends] = useState([])
-  // const [game, setGames] = useState([])
+  // const [games, setGames] = useState([])
 
   const clearUser = () => setUser(null)
 
@@ -38,7 +39,7 @@ const App = () => {
   //     .then(res => setGames(res.data.games))
   //     .catch(console.error)
   // }, [])
-  console.log('this is legends:', legends)
+  console.log('this is legends in App:', legends)
   return (
     <Fragment>
       <Header user={user} />
@@ -68,6 +69,9 @@ const App = () => {
         )} />
         <AuthenticatedRoute user={user} path='/view-games' render={() => (
           <LegendBoard user={user} legends={legends} />
+        )} />
+        <AuthenticatedRoute user={user} path='/all-games' render={() => (
+          <ShowGames user={user} legends={legends} />
         )} />
       </main>
     </Fragment>

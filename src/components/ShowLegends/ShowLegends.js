@@ -3,6 +3,7 @@ import { CardBody, Card, CardImg, CardText } from 'reactstrap'
 import './showlegends.css'
 // import axios from 'axios'
 // import apiUrl from '../../apiConfig'
+import ShowGames from '../ShowGames/ShowGames'
 const ShowLegends = ({ user, games, legends }) => {
   // const [isOpen, setIsOpen] = useState(false)
   // const toggle = () => setIsOpen(!isOpen)
@@ -41,11 +42,11 @@ const ShowLegends = ({ user, games, legends }) => {
   }
   const allLegends = legends.map(legend => {
     return (
-      <div key={legend._id}>
+      <div key={legend._id} className=''>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button */}
         <Card id={legend.id} onClick={() => getGameStats(legend._id)}>
-          <CardImg width='50%' src={legend.image} />
+          <CardImg className='cardimg' src={legend.image} />
           <CardBody>
             <CardText>{legend.name}</CardText>
           </CardBody>
@@ -53,7 +54,12 @@ const ShowLegends = ({ user, games, legends }) => {
       </div>
     )
   })
-  return <div>{ allLegends }</div>
+  return <div className=''>
+    <div className='flex'>
+      { allLegends }
+    </div>
+    <ShowGames user={user} games={games} />
+  </div>
 }
 
 export default ShowLegends
