@@ -29,6 +29,7 @@ An app used to keep track of your game data all in one spot.
 ## Technologies Used
 - Node js
 - React js
+- Reactstrap
 - Javascript
 - HTML
 - CSS/Sass
