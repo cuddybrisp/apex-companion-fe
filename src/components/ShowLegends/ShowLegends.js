@@ -3,7 +3,7 @@ import { CardBody, Card, CardImg, CardText } from 'reactstrap'
 import './showlegends.css'
 // import axios from 'axios'
 // import apiUrl from '../../apiConfig'
-import ShowGames from '../ShowGames/ShowGames'
+// import ShowGames from '../ShowGames/ShowGames'
 const ShowLegends = ({ user, games, legends }) => {
   // const [isOpen, setIsOpen] = useState(false)
   // const toggle = () => setIsOpen(!isOpen)
@@ -58,7 +58,7 @@ const ShowLegends = ({ user, games, legends }) => {
     <div className='flex'>
       { allLegends }
     </div>
-    <ShowGames user={user} games={games} />
+    { /*  <ShowGames user={user} games={games} /> */}
   </div>
 }
 

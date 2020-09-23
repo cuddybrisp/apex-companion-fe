@@ -65,7 +65,7 @@ const App = () => {
           <ChangePassword msgAlert={msgAlert} user={user} />
         )} />
         <AuthenticatedRoute user={user} path='/new-games' render={() => (
-          <CreateGameForm user={user} legends={legends} />
+          <CreateGameForm msgAlert={msgAlert} user={user} legends={legends} />
         )} />
         <AuthenticatedRoute user={user} path='/view-games' render={() => (
           <LegendBoard user={user} legends={legends} />
