@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CardBody, Card, CardText } from 'reactstrap'
+import { CardBody, Card } from 'reactstrap'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 
@@ -16,6 +16,7 @@ const ShowGames = ({ user }) => {
       .then(res => setGames(res.data.games))
       .catch(console.error)
   }, [])
+  // const gameWon = game.legend
   console.log('this is the game in Showgames', games)
   const allGames = games.map(game => {
     console.log('this is games in ShowGames after map', game)
@@ -24,18 +25,17 @@ const ShowGames = ({ user }) => {
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
         <Card id={game.legend.id}>
           <CardBody>
-            <CardText >
-              <p>
-                {game.legend.name}
-                <p>
-                  {game.damage}
-                </p>
-                <p>
-                  {game.kills}
-                </p>
-                {game.win}
-              </p>
-            </CardText>
+            <div>
+              <img src={game.legend.image}/>
+              <h2>Legend:</h2>
+              {game.legend.name}
+              <h3>Damage:</h3>
+              {game.damage}
+              <h3>Kills:</h3>
+              {game.kills}
+              <h3>Win:</h3>
+              {game.win}
+            </div>
           </CardBody>
         </Card>
       </div>

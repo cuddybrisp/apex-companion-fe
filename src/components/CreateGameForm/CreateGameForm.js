@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import apiUrl from '../../apiConfig'
 import axios from 'axios'
+import messages from '../AutoDismissAlert/messages'
 
-const CreateGameForm = ({ user, legends }) => {
+const CreateGameForm = ({ user, legends, msgAlert }) => {
   const [game, setGame] = useState({ legend: '', kills: '', damage: '', win: false })
   console.log('this is legends in CreateGameForm:', legends)
   const allLegends = legends.map(legend => {
@@ -31,6 +32,11 @@ const CreateGameForm = ({ user, legends }) => {
       },
       data: { game }
     })
+      .then(() => msgAlert({
+        heading: 'New Game!',
+        message: messages.createGameSuccess,
+        variant: 'success'
+      }))
   }
   console.log('this is handlechange', handleChange, game)
   return (
