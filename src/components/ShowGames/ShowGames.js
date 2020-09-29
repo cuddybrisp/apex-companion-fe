@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { CardBody, Card } from 'reactstrap'
+import { CardBody, Card, Button } from 'reactstrap'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 
 const ShowGames = ({ user }) => {
   const [games, setGames] = useState([])
+  const [deletedGame, setDeleted] = useState(false)
   useEffect(() => {
     axios({
       url: `${apiUrl}/games`,
@@ -16,10 +17,36 @@ const ShowGames = ({ user }) => {
       .then(res => setGames(res.data.games))
       .catch(console.error)
   }, [])
+
+  const handleDelete = event => {
+    const game = event.target.id
+
+    axios({
+      url: `${apiUrl}/games/${game}`,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(res => setDeleted(true))
+      .catch(console.error)
+  }
+  if (deletedGame) {
+    axios({
+      url: `${apiUrl}/games`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(res => setGames(res.data.games))
+      .then(() => setDeleted(false))
+      .catch(console.error)
+  }
   // const gameWon = game.legend
-  console.log('this is the game in Showgames', games)
+  console.log('this is the games in Showgames', games)
   const allGames = games.map(game => {
-    console.log('this is games in ShowGames after map', game)
+    console.log('this is game in ShowGames after map', game)
     return (
       <div key={game._id}>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
@@ -35,6 +62,12 @@ const ShowGames = ({ user }) => {
               {game.kills}
               <h3>Win:</h3>
               {game.win}
+              {user._id === game.owner ? <Button
+                className="dlt-btn"
+                size="sm"
+                variant="outline-danger"
+                id={game._id}
+                onClick={handleDelete}>Delete</Button> : ''}
             </div>
           </CardBody>
         </Card>
