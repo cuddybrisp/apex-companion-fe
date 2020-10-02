@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { CardBody, Card, Button } from 'reactstrap'
 import axios from 'axios'
+import messages from '../AutoDismissAlert/messages'
 import apiUrl from '../../apiConfig'
 
-const ShowGames = ({ user }) => {
+const ShowGames = ({ match, user, msgAlert }) => {
   const [games, setGames] = useState([])
   const [deletedGame, setDeleted] = useState(false)
   useEffect(() => {
@@ -28,6 +29,11 @@ const ShowGames = ({ user }) => {
         'Authorization': `Token token=${user.token}`
       }
     })
+      .then(() => msgAlert({
+        heading: 'Game Permanently Deleted',
+        message: messages.deleteGameSuccess,
+        variant: 'success'
+      }))
       .then(res => setDeleted(true))
       .catch(console.error)
   }
@@ -53,15 +59,11 @@ const ShowGames = ({ user }) => {
         <Card id={game.legend.id}>
           <CardBody>
             <div>
-              <img src={game.legend.image}/>
-              <h2>Legend:</h2>
-              {game.legend.name}
-              <h3>Damage:</h3>
-              {game.damage}
-              <h3>Kills:</h3>
-              {game.kills}
-              <h3>Win:</h3>
-              {game.win}
+              <img src={game.legend.image} className='legend-img'/>
+              <h2>Legend: {game.legend.name}</h2>
+              <h3>Damage: {game.damage}</h3>
+              <h3>Kills: {game.kills}</h3>
+              <h3>Win: {game.win === true ? 'yes' : 'no'}</h3>
               {user._id === game.owner ? <Button
                 className="dlt-btn"
                 size="sm"
@@ -75,7 +77,7 @@ const ShowGames = ({ user }) => {
     )
   })
   return <div>
-    { allGames }
+    {!games ? <h1>You Will Need To Create A Game First</h1> : allGames }
   </div>
 }
 export default ShowGames

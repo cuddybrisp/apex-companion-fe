@@ -49,9 +49,9 @@ const CreateGameForm = ({ user, legends, msgAlert }) => {
         </Input>
       </FormGroup>
       <FormGroup>
-        <Label for="exampleText">Kills:</Label>
+        <Label for="kills">Kills:</Label>
         <Input type="text" name="kills" id="kills" />
-        <Label for="exampleText">Damage Done:</Label>
+        <Label for="damage">Damage Done:</Label>
         <Input type="text" name="damage" id="damage" />
       </FormGroup>
       <FormGroup check>

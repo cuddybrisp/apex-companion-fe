@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import LegendBoard from '../LegendBoard/LegendBoard'
 import CreateGameForm from '../CreateGameForm/CreateGameForm'
 import ShowGames from '../ShowGames/ShowGames'
+import EditGames from '../EditGames/EditGames'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 
@@ -71,7 +72,10 @@ const App = () => {
           <LegendBoard user={user} legends={legends} />
         )} />
         <AuthenticatedRoute user={user} path='/all-games' render={() => (
-          <ShowGames user={user} legends={legends} />
+          <ShowGames msgAlert={msgAlert} user={user} legends={legends} />
+        )} />
+        <AuthenticatedRoute user={user} path='/edit' render={() => (
+          <EditGames user={user} legends={legends} />
         )} />
       </main>
     </Fragment>

@@ -34,10 +34,16 @@ const ShowLegends = ({ user, games, legends }) => {
     const addUpDamg = legGames.forEach(game => {
       totalDamage += game.damage
     })
+    let totalWins = 0
+    const addUpWins = legGames.forEach(game => {
+      totalWins += game.win
+    })
     console.log('this is totalDamage', totalDamage)
     console.log('this is addUpDamg', addUpDamg)
     console.log('this is addUpKills', addUpKills)
     console.log('this is totalKills', totalKills)
+    console.log('this is addUpWins', addUpWins)
+    console.log('this is totalWins', totalWins)
     return legGames
   }
   const allLegends = legends.map(legend => {
@@ -48,7 +54,7 @@ const ShowLegends = ({ user, games, legends }) => {
         <Card id={legend.id} onClick={() => getGameStats(legend._id)}>
           <CardImg className='cardimg' src={legend.image} />
           <CardBody>
-            <CardText>{legend.name}</CardText>
+            <CardText><h1>{legend.name}</h1></CardText>
           </CardBody>
         </Card>
       </div>
