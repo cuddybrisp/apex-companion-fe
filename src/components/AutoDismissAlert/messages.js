@@ -8,5 +8,7 @@ export default {
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   createGameSuccess: 'Latest Game Recorded',
   editGameSuccess: 'Game Has Been Updated',
-  deleteGameSuccess: 'Game Has Been Removed From Your Records'
+  deleteGameSuccess: 'Game Has Been Removed From Your Records',
+  noLegendSelected: 'You failed to select a Legend',
+  createGameFailure: 'Please Complete Form Correctly'
 }

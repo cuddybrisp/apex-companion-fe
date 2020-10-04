@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardBody, Card, CardImg, CardText } from 'reactstrap'
+import { CardBody, Card, CardImg, CardText, CardHeader } from 'reactstrap'
 import './showlegends.css'
 // import axios from 'axios'
 // import apiUrl from '../../apiConfig'
@@ -44,17 +44,21 @@ const ShowLegends = ({ user, games, legends }) => {
     console.log('this is totalKills', totalKills)
     console.log('this is addUpWins', addUpWins)
     console.log('this is totalWins', totalWins)
-    return legGames
+    return [totalKills, totalWins, totalDamage]
   }
   const allLegends = legends.map(legend => {
+    const [totalKills, totalWins, totalDamage] = getGameStats(legend._id)
     return (
       <div key={legend._id} className=''>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button */}
         <Card id={legend.id} onClick={() => getGameStats(legend._id)}>
+          <CardHeader>{legend.name}</CardHeader>
           <CardImg className='cardimg' src={legend.image} />
           <CardBody>
-            <CardText><h1>{legend.name}</h1></CardText>
+            <CardText>total Wins with This Legend: {totalWins}</CardText>
+            <CardText>total Damage with This Legend: {totalDamage}</CardText>
+            <CardText>total Kills with This Legend: {totalKills}</CardText>
           </CardBody>
         </Card>
       </div>

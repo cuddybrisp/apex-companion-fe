@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { CardBody, Card, Button } from 'reactstrap'
+import EditGame from '../EditGame/EditGame'
 import axios from 'axios'
 import messages from '../AutoDismissAlert/messages'
 import apiUrl from '../../apiConfig'
 
-const ShowGames = ({ match, user, msgAlert }) => {
+const ShowGames = ({ match, user, msgAlert, legends }) => {
   const [games, setGames] = useState([])
-  const [deletedGame, setDeleted] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [editGame, setEditGame] = useState(null)
+  const [deleted, setDeleted] = useState(false)
+  // const [gameToEditId, setGameToEditId] = useState(null)
+  const toggle = () => setModal(!modal)
+  const onBtnClick = (event) => {
+    toggle()
+    setEditGame(event.target.id)
+  }
   useEffect(() => {
     axios({
       url: `${apiUrl}/games`,
@@ -17,7 +26,7 @@ const ShowGames = ({ match, user, msgAlert }) => {
     })
       .then(res => setGames(res.data.games))
       .catch(console.error)
-  }, [])
+  }, [modal, deleted])
 
   const handleDelete = event => {
     const game = event.target.id
@@ -34,25 +43,12 @@ const ShowGames = ({ match, user, msgAlert }) => {
         message: messages.deleteGameSuccess,
         variant: 'success'
       }))
-      .then(res => setDeleted(true))
+      .then(setDeleted(!deleted))
+      // .then(res => setDeleted(true))
       .catch(console.error)
   }
-  if (deletedGame) {
-    axios({
-      url: `${apiUrl}/games`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Token token=${user.token}`
-      }
-    })
-      .then(res => setGames(res.data.games))
-      .then(() => setDeleted(false))
-      .catch(console.error)
-  }
-  // const gameWon = game.legend
-  console.log('this is the games in Showgames', games)
+  console.log('this is games in showgames', games)
   const allGames = games.map(game => {
-    console.log('this is game in ShowGames after map', game)
     return (
       <div key={game._id}>
         {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
@@ -64,12 +60,19 @@ const ShowGames = ({ match, user, msgAlert }) => {
               <h3>Damage: {game.damage}</h3>
               <h3>Kills: {game.kills}</h3>
               <h3>Win: {game.win === true ? 'yes' : 'no'}</h3>
-              {user._id === game.owner ? <Button
+              {user._id === game.owner ? <div> <Button
                 className="dlt-btn"
                 size="sm"
                 variant="outline-danger"
                 id={game._id}
-                onClick={handleDelete}>Delete</Button> : ''}
+                onClick={handleDelete}>Delete</Button>
+              <Button
+                className="dlt-btn"
+                size="sm"
+                variant="outline-success"
+                id={game._id}
+                onClick={onBtnClick}>Edit</Button> </div> : ''}
+              <EditGame setModal={setModal} modal={modal} user={user} gameId={game._id} game={game} legends={legends} msgAlert={msgAlert} editGame={editGame} />
             </div>
           </CardBody>
         </Card>
@@ -77,7 +80,7 @@ const ShowGames = ({ match, user, msgAlert }) => {
     )
   })
   return <div>
-    {!games ? <h1>You Will Need To Create A Game First</h1> : allGames }
+    {games.length === 0 ? <h1>You Will Need To Create A Game First</h1> : allGames }
   </div>
 }
 export default ShowGames
