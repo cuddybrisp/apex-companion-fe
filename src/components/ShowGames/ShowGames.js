@@ -10,7 +10,6 @@ const ShowGames = ({ match, user, msgAlert, legends }) => {
   const [modal, setModal] = useState(false)
   const [editGame, setEditGame] = useState(null)
   const [deleted, setDeleted] = useState(false)
-  // const [gameToEditId, setGameToEditId] = useState(null)
   const toggle = () => setModal(!modal)
   const onBtnClick = (event) => {
     toggle()
@@ -44,10 +43,19 @@ const ShowGames = ({ match, user, msgAlert, legends }) => {
         variant: 'success'
       }))
       .then(setDeleted(!deleted))
-      // .then(res => setDeleted(true))
+      .then(refreshGames())
       .catch(console.error)
   }
-  console.log('this is games in showgames', games)
+  const refreshGames = event => {
+    axios({
+      url: `${apiUrl}/games`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(res => setGames(res.data.games))
+  }
   const allGames = games.map(game => {
     return (
       <div key={game._id}>
@@ -84,25 +92,3 @@ const ShowGames = ({ match, user, msgAlert, legends }) => {
   </div>
 }
 export default ShowGames
-
-// const getGameStats = (legId) => {
-//   // this is the syntax used to get the name from the function
-//   const legGames = games.filter(game => game.legend._id === legId)
-//   console.log('this is legGames', legGames)
-//   // how to get name of legend when im in show games component, might be game.legend.name if using map or forEach
-//
-//   // console.log('this is leggames bracket 0', legGames[0].legend.name)
-//   let totalKills = 0
-//   const addUpKills = legGames.forEach(game => {
-//     totalKills += game.kills
-//   })
-//   let totalDamage = 0
-//   const addUpDamg = legGames.forEach(game => {
-//     totalDamage += game.damage
-//   })
-//   console.log('this is totalDamage', totalDamage)
-//   console.log('this is addUpDamg', addUpDamg)
-//   console.log('this is addUpKills', addUpKills)
-//   console.log('this is totalKills', totalKills)
-//   return legGames
-// }

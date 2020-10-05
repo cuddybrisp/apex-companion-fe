@@ -7,7 +7,6 @@ import messages from '../AutoDismissAlert/messages'
 
 const CreateGameForm = ({ user, legends, msgAlert }) => {
   const [game, setGame] = useState({ legend: '', kills: '', damage: '', win: false })
-  console.log('this is legends in CreateGameForm:', legends)
   const allLegends = legends.map(legend => {
     return (<option value={legend._id} key={legend._id}>{legend.name}</option>)
   })
@@ -19,13 +18,11 @@ const CreateGameForm = ({ user, legends, msgAlert }) => {
     event.persist()
     setGame(prevGame => {
       const updatedField = event.target.name === 'win' ? { win: !prevGame.win } : { [event.target.name]: event.target.value }
-      console.log('this is updatedField in create', updatedField)
       const editedGame = Object.assign({}, prevGame, updatedField)
       return editedGame
     })
   }
   const handleSubmit = event => {
-    console.log('the game is the game', game)
     event.preventDefault()
 
     if (game.legend !== '--Select Legend--' || game.legend !== '') {

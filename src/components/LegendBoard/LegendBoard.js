@@ -18,7 +18,6 @@ const LegendBoard = ({ user, legends }) => {
       .catch(console.error)
   }, [])
   // <ShowLegends legends={legends} />
-  console.log('legendboard this is also user and games:', user, games)
   return (
     <div>
       <ShowLegends legends={legends} games={games} user={user} />
