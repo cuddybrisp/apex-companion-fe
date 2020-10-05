@@ -56,6 +56,6 @@ DELETE | /sign-out
 #### ERD:
 [ERD](https://imgur.com/mGCmQma)
 ## V1 Preview:
-![alt text](https://imgur.com/97VJjm2 "V1 Game Create")
-![alt text](https://imgur.com/keTg20A "V1 Game Stats")
+![alt text](https://i.imgur.com/eSeQdKH.png "V1 Game Create")
+![alt text](https://i.imgur.com/8u0pShG.png "V1 Game Stats")
 
