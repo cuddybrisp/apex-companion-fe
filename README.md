@@ -55,3 +55,7 @@ DELETE | /sign-out
 [App V1](https://imgur.com/14Ov2oK)
 #### ERD:
 [ERD](https://imgur.com/mGCmQma)
+## V1 Preview:
+![alt text](https://imgur.com/97VJjm2 "V1 Game Create")
+![alt text](https://imgur.com/keTg20A "V1 Game Stats")
+
