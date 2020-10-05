@@ -32,14 +32,6 @@ const App = () => {
       .then(res => setLegends(res.data.legends))
       .catch(console.error)
   }, [])
-  // useEffect(() => {
-  //   axios({
-  //     url: `${apiUrl}/games`
-  //   })
-  //     .then(res => setGames(res.data.games))
-  //     .catch(console.error)
-  // }, [])
-  console.log('this is legends in App:', legends)
   return (
     <Fragment>
       <Header user={user} />
@@ -67,11 +59,11 @@ const App = () => {
         <AuthenticatedRoute user={user} path='/new-games' render={() => (
           <CreateGameForm msgAlert={msgAlert} user={user} legends={legends} />
         )} />
-        <AuthenticatedRoute user={user} path='/view-games' render={() => (
+        <AuthenticatedRoute user={user} path='/view-legends' render={() => (
           <LegendBoard user={user} legends={legends} />
         )} />
         <AuthenticatedRoute user={user} path='/all-games' render={() => (
-          <ShowGames user={user} legends={legends} />
+          <ShowGames msgAlert={msgAlert} user={user} legends={legends} />
         )} />
       </main>
     </Fragment>

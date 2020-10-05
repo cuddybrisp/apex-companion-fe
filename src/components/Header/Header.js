@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#all-games">All Games</Nav.Link>
-    <Nav.Link href="#view-games">View Games</Nav.Link>
+    <Nav.Link href="#view-legends">View Legends</Nav.Link>
     <Nav.Link href="#new-games">New Games</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
@@ -19,22 +19,22 @@ const unauthenticatedOptions = (
   </Fragment>
 )
 
-const alwaysOptions = (
-  <Fragment>
-    <Nav.Link to="/">Home</Nav.Link>
-  </Fragment>
-)
+// const alwaysOptions = (
+//   <Fragment>
+//     <Nav.Link to="/">Home</Nav.Link>
+//   </Fragment>
+// )
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
     <Navbar.Brand href="#">
-      react-auth-template
+      Apex Legends Companion App
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
         { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
-        { alwaysOptions }
+        {/* { alwaysOptions } */}
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
     </Navbar.Collapse>
