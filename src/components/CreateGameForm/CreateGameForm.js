@@ -44,13 +44,13 @@ const CreateGameForm = ({ user, legends, msgAlert }) => {
         .catch(() => msgAlert({
           heading: 'Game Create Failed!',
           message: messages.createGameFailure,
-          variant: 'success'
+          variant: 'danger'
         }))
     } else {
       msgAlert({
         heading: 'No Legend Selected',
         message: messages.noLegendSelected,
-        variant: 'success'
+        variant: 'danger'
       })
     }
   }

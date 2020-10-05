@@ -48,7 +48,7 @@ const EditGame = (props) => {
       msgAlert({
         heading: 'Pick A Viable Legend',
         message: messages.noLegendSelected,
-        variant: 'success'
+        variant: 'danger'
       })
     }
   }

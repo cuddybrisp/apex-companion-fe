@@ -43,7 +43,12 @@ const ShowGames = ({ match, user, msgAlert, legends }) => {
         variant: 'success'
       }))
       .then(setDeleted(!deleted))
-      .then(refreshGames())
+      .then(() => refreshGames())
+      .catch(() => msgAlert({
+        heading: 'Game Failed To Delete',
+        message: messages.deleteGameFailure,
+        variant: 'danger'
+      }))
       .catch(console.error)
   }
   const refreshGames = event => {
@@ -65,8 +70,8 @@ const ShowGames = ({ match, user, msgAlert, legends }) => {
             <div>
               <img src={game.legend.image} className='legend-img'/>
               <h2>Legend: {game.legend.name}</h2>
-              <h3>Damage: {game.damage}</h3>
               <h3>Kills: {game.kills}</h3>
+              <h3>Damage: {game.damage}</h3>
               <h3>Win: {game.win === true ? 'yes' : 'no'}</h3>
               {user._id === game.owner ? <div> <Button
                 className="dlt-btn"
